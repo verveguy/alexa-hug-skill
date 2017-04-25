@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "alexa-hug-executor",
+    "name": "alexa-hug",
+    "region": "us-east-1"
+  },
+  "api": {
+    "id": "sjbgur5705",
+    "module": "bot"
+  }
+}
