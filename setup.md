@@ -9,7 +9,7 @@ Here are the parameters you should set up with your Alexa Skill:
     "slots": [
      {
        "name": "Huggee",
-       "type": "Person"
+       "type": "HUGGEE"
      }]
   }, {
     "intent": "ExitApp"
@@ -19,7 +19,7 @@ Here are the parameters you should set up with your Alexa Skill:
 
 # Slot types
 
-* Type: `NAME`
+* Type: `HUGGEE`
 
 Examples: 
 
@@ -34,8 +34,10 @@ Brett
 
 # Sample Utterances
 
-GiveHug hug {Person}
-GiveHug squeeze {Person}
-GiveHug embrace {Person}
-GiveHug give {Person} a hug
+GiveHug hug {Huggee}
+GiveHug squeeze {Huggee}
+GiveHug embrace {Huggee}
+GiveHug give {Huggee} a hug
+GiveHug {Huggee}
+GiveHug to give {Huggee} a hug
 ExitApp stop
