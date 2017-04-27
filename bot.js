@@ -1,4 +1,6 @@
 /*global require, module, console */
+const alexa = require('alexa-response');
+
 const botBuilder = require('claudia-bot-builder'),
 	getIntentName = function (alexaPayload) {
 		'use strict';
@@ -7,6 +9,19 @@ const botBuilder = require('claudia-bot-builder'),
 			alexaPayload.request.type === 'IntentRequest' &&
 			alexaPayload.request.intent &&
 			alexaPayload.request.intent.name;
+	},
+	getSlots = function (alexaPayload) {
+		'use strict';
+		return alexaPayload &&
+			alexaPayload.request &&
+			alexaPayload.request.type === 'IntentRequest' &&
+			alexaPayload.request.intent &&
+			alexaPayload.request.intent.slots;
+	},
+	getSlot = function (alexaPayload, slotname) {
+		'use strict';
+		const slots = getSlots(alexaPayload);
+		return slots[slotname] && slots[slotname].value;
 	},
 	getRequestType = function (alexaPayload) {
 		'use strict';
@@ -21,54 +36,46 @@ const api = botBuilder(
 		'use strict';
 		console.log(originalRequest.body);
 		console.log('Message:', message)
-		let result = {};
+		console.log('Slots:', getSlots(originalRequest.body))
+		let result = null;
 
 		if (getIntentName(originalRequest.body) === 'GiveHug') {
-			// just return a text message to have it automatically packaged
-			// as a PlainText Alexa response, continuing the session
-			result = {
-				response: {
-					outputSpeech: {
-						type: 'PlainText',
-						text: message.text + ' has been hugged.' // TODO: count of times
-					},
-					shouldEndSession: false
-				}
-			};
+			const huggee = getSlot(originalRequest.body, 'Huggee');
+			const hugger = getSlot(originalRequest.body, 'Hugger');
+			if ("undefined" === typeof hugger)
+			{
+				result = alexa.Response.ask('Tell me who is hugging ' + huggee).reprompt('Tell me who is hugging ' + huggee);
+				// so this asks, but how to handle the response?
+			}
+			else
+			{
+				result = alexa.Response.say(huggee + ' has been hugged by '+ hugger + '.'); // TODO: count of times
+			}
 		} 
-		// you can use all the Alexa request properties from originalRequest.body
+		else if (getIntentName(originalRequest.body) === 'Register') {
+			const food = getSlot(originalRequest.body, 'Food');
+			const animal = getSlot(originalRequest.body, 'Animal');
+			const person = getSlot(originalRequest.body, 'Person');
+			result = alexa.Response.say("Registering your hugger as " + person + " eating " + food + " with " + animal);
+		} 
 		else if (getRequestType(originalRequest.body) === 'LaunchRequest'){
-			// return a JavaScript object to set advanced response params
-			// this prevents any packaging from bot builder and is just
-			// returned to Alexa as you specify
-			result = {
-				response: {
-					outputSpeech: {
-						type: 'PlainText',
-						text: 'Tell me who you\'d like to hug.'
-					},
-					shouldEndSession: false
-				}
-			};
+			result = alexa.Response.ask('Tell me who you\'d like to hug.').reprompt('Tell me who you\'d like to hug.');
 		} 
 		else if (getIntentName(originalRequest.body) === 'ExitApp'){
-			// return a JavaScript object to set advanced response params
-			// this prevents any packaging from bot builder and is just
-			// returned to Alexa as you specify
-			result = {
-				response: {
-					outputSpeech: {
-						type: 'PlainText',
-						text: 'Hugs have been stored for future delivery.'
-					},
-					shouldEndSession: true
-				}
-			};
+			result = alexa.Response.speech('Hugs have been stored for future delivery.');
 		}
-		else {
+		
+		if (result !== null)
+		{
+			result = result.build();
+			console.log(result);
+		}
+		else 
+		{
+			console.log("empty result");
 			result = {};
 		}
-		console.log(result);
+
 		return result;
 	},
 	{ platforms: ['alexa'] }

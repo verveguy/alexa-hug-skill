@@ -10,6 +10,7 @@
   "author": "Brett Adam <bpjadam@gmail.com> (http://verveguy.net/)",
   "license": "MIT",
   "dependencies": {
-    "claudia-bot-builder": "^2.7.1"
+    "claudia-bot-builder": "^2.7.1",
+    "alexa-response": "^4.2"
   }
 }
