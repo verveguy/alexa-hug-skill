@@ -1,33 +1,36 @@
 {
-  "name": "alexa-blackjack-trainer",
-  "description": "A blackjack trainer skill for Alexa.",
-  "version": "1.1.2",
-  "author": "Mark Brouch <mark.brouch@gmail.com>",
+  "name": "alexa-hugger",
+  "description": "A simple skill for hugging people",
+  "version": "0.0.1",
+  "author": "Brett Adam <bpjadam@gmail.com>",
   "bugs": {
-    "url": "https://github.com/markbrouch/alexa-blackjack-trainer/issues",
-    "email": "mark.brouch@gmail.com"
+    "url": "https://github.com/verveguy/alexa-hug-skill.git",
+    "email": "bpjadam@gmail.com"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.8",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
-    "eslint": "^3.15.0",
-    "eslint-config-airbnb-base": "^11.1.0",
-    "eslint-loader": "^1.6.1",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.7.1",
     "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "json-loader": "^0.5.4",
-    "node-lambda": "^0.8.13",
+    "node-lambda": "0.8.14",
     "webpack": "^1.13.3",
     "webpack-node-externals": "^1.5.4"
   },
-  "homepage": "https://github.com/markbrouch/alexa-blackjack-trainer",
+  "homepage": "https://github.com/verveguy/alexa-hug-skill",
   "keywords": [
     "alexa",
-    "blackjack"
+    "hug"
   ],
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/markbrouch/alexa-blackjack-trainer.git"
@@ -49,8 +52,6 @@
     "webpack": "webpack"
   },
   "dependencies": {
-    "alexa-sdk": "^1.0.6",
-    "blackjack-strategy": "^1.3.2",
-    "engine-blackjack": "^0.1.91"
+    "alexa-sdk": "^1.0.9"
   }
 }
