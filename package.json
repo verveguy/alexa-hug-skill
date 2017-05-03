@@ -9,20 +9,16 @@
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.8",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
-    "eslint-loader": "^1.7.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "json-loader": "^0.5.4",
-    "node-lambda": "0.8.14",
-    "webpack": "^1.13.3",
-    "webpack-node-externals": "^1.5.4"
+    "node-lambda": "0.8.14"
   },
   "homepage": "https://github.com/verveguy/alexa-hug-skill",
   "keywords": [
@@ -33,23 +29,18 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/markbrouch/alexa-blackjack-trainer.git"
+    "url": "https://github.com/verveguy/alexa-hug-skill.git"
   },
   "scripts": {
-    "deploy": "node-lambda deploy --handler dist/index.default --configFile deploy.env --functionName $npm_package_name --description \"$npm_package_description\"",
-    "deploy:dev": "node-lambda deploy --handler dist/index.default --configFile deploy.dev.env --functionName $npm_package_name --description \"$npm_package_description\"",
+    "deploy": "node-lambda deploy --handler index.handler --configFile deploy.env --functionName $npm_package_name --description \"$npm_package_description\"",
+    "deploy:dev": "node-lambda deploy --handler index.default --configFile deploy.dev.env --functionName $npm_package_name --description \"$npm_package_description\"",
     "lambda": "node-lambda",
-    "package": "node-lambda package --handler dist/index.default --configFile deploy.env --functionName $npm_package_name --excludeGlobs \"./index.js webpack.config.js context.json event.json .babelrc .nvmrc .gitignore LICENSE.md README.md\"",
-    "package:dev": "node-lambda package --handler dist/index.default --configFile deploy.dev.env --functionName $npm_package_name --excludeGlobs \"./index.js webpack.config.js context.json event.json .babelrc .nvmrc .gitignore LICENSE.md README.md\"",
+    "package": "node-lambda package --handler index.default --configFile deploy.env --functionName $npm_package_name --excludeGlobs \"./index.js webpack.config.js context.json event.json .babelrc .nvmrc .gitignore LICENSE.md README.md\"",
+    "package:dev": "node-lambda package --handler index.default --configFile deploy.dev.env --functionName $npm_package_name --excludeGlobs \"./index.js webpack.config.js context.json event.json .babelrc .nvmrc .gitignore LICENSE.md README.md\"",
     "postinstall": "node-lambda setup",
-    "predeploy": "NODE_ENV=production webpack -p",
-    "prepackage": "NODE_ENV=production webpack -p",
-    "pretest": "webpack",
     "setup": "node-lambda setup",
-    "start": "webpack --watch",
-    "test": "webpack && eval $([ -f deploy.env ] && cat deploy.env) node-lambda run --handler dist/index.default",
-    "test:dev": "webpack && eval $([ -f deploy.dev.env ] && cat deploy.dev.env) node-lambda run --handler dist/index.default",
-    "webpack": "webpack"
+    "test": "eval $([ -f deploy.env ] && cat deploy.env) node-lambda run --handler index.default",
+    "test:dev": "eval $([ -f deploy.dev.env ] && cat deploy.dev.env) node-lambda run --handler index.default"
   },
   "dependencies": {
     "alexa-sdk": "^1.0.9"
