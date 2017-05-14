@@ -103,7 +103,7 @@ var hugHandlers = Alexa.CreateStateHandler(states.HUGMODE, {
     {
       this.attributes['hugsGiven'] = this.attributes['hugsGiven'] + 1
       var hugs = this.attributes['hugs']
-      hugs.append({'huggee': huggee, 'hugger': hugger})
+      hugs.push({'huggee': huggee, 'hugger': hugger})
       this.emit(':tell', huggee + ' has been hugged by ' + hugger + '.')
     }
   },
